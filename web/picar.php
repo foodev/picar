@@ -3,16 +3,9 @@
 $action = isset($_POST['action']) ? $_POST['action'] : null;
 $direction = isset($_POST['direction']) ? $_POST['direction'] : null;
 
-$cmd = $direction;
+$cmd = 'sudo python /home/pi/picar/scripts/picarControl.py %s %s';
 
-if ($action == 'off') {
-    $cmd .= 'off';
-}
+exec(sprintf($cmd, $action, $direction), $output);
 
-exec(sprintf('sudo /home/pi/picarControl.sh %s', $cmd), $output);
-
-echo $action . ' - ' . $direction . PHP_EOL;
-echo $cmd . PHP_EOL;
-echo sprintf('sudo /home/pi/picarControl.sh %s', $cmd);
+echo sprintf($cmd, $action, $direction) . PHP_EOL;
 var_dump($output);
-
