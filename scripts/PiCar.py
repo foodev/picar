@@ -58,13 +58,13 @@ def Drive(motor, action, direction = None):
         GPIO.cleanup()
 
 def DriveForward():
-    Drive('back', 'on', 'clockwise');
+    Drive('back', 'on', 'counter-clockwise');
 
 def DriveForwardStop():
     Drive('back', 'off');
 
 def DriveBack():
-    Drive('back', 'on', 'counter-clockwise');
+    Drive('back', 'on', 'clockwise');
 
 def DriveBackStop():
     Drive('back', 'off');
