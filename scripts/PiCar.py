@@ -4,8 +4,10 @@ import sys
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
-MOTOR_FRONT = (7, 11)
-MOTOR_BACK = (12, 16)
+MOTORS = {
+    'front': (7, 11),
+    'back': (12, 16)
+}
 
 def MotorInit(motor):
     GPIO.setup(motor[0], GPIO.OUT)
@@ -25,35 +27,22 @@ def MotorCounterClockwise(motor):
     GPIO.output(motor[1], GPIO.LOW)
 
 def Drive(motor, action, direction = None):
+    motorUsed = None
+
     try:
-        if motor == 'front':
-            motorUsed = 'front'
-            MotorInit(MOTOR_FRONT)
+        motorUsed = motor
+        MotorInit(MOTORS[motor])
 
-            if action == 'on':
-                if direction == 'clockwise':
-                    MotorClockwise(MOTOR_FRONT)
-                else:
-                    MotorCounterClockwise(MOTOR_FRONT)
+        if action == 'on':
+            if direction == 'clockwise':
+                MotorClockwise(MOTORS[motor])
             else:
-                MotorOff(MOTOR_FRONT)
+                MotorCounterClockwise(MOTORS[motor])
         else:
-            motorUsed = 'back'
-            MotorInit(MOTOR_BACK)
-
-            if action == 'on':
-                if direction == 'clockwise':
-                    MotorClockwise(MOTOR_BACK)
-                else:
-                    MotorCounterClockwise(MOTOR_BACK)
-            else:
-                MotorOff(MOTOR_BACK)
+            MotorOff(MOTORS[motor])
     except KeyboardInterrupt:
-        if 'motorUsed' in locals():
-            if motorUsed == 'front':
-                MotorOff(MOTOR_FRONT)
-            elif motorUsed == 'back':
-                MotorOff(MOTOR_BACK)
+        if motorUsed in MOTORS:
+            MotorOff(MOTORS[motorUsed])
 
         GPIO.cleanup()
 

@@ -6,7 +6,4 @@ import cgi
 import os
 
 form = cgi.FieldStorage()
-action = form['action'].value
-direction = form['direction'].value
-
-os.system('sudo python ../scripts/PiCarControl.py ' + action + ' ' + direction)
+os.system('sudo python ../scripts/PiCarControl.py {0} {1}'.format(form['action'].value, form['direction'].value))
