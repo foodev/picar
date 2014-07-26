@@ -13,8 +13,8 @@ html {
 body {
     position: relative;
     display: block;
-    width: 80%;
-    min-height: 80%;
+    height: auto;
+    min-height: 100%;
     margin: 0 auto;
 }
 .arrow {
@@ -27,30 +27,65 @@ body {
     color: #f00;
 }
 #arrow-left {
-    left: 0;
     top: 50%;
+    left: 0;
 }
 #arrow-up {
-    left: 50%;
+    width: 100%;
     top: 0;
+    left: 0;
+    text-align: center;
 }
 #arrow-right {
-    right: 0;
     top: 50%;
+    right: 0;
 }
 #arrow-down {
-    left: 50%;
+    width: 100%;
+    left: 0;
     bottom: 0;
+    text-align: center;
+}
+#camera {
+    position: absolute;
+    width: 1024px;
+    height: 768px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: 1px solid #555;
 }
 </style>
 
 <div id="arrow-left" class="arrow">LEFT</div>
-<div id="arrow-up" class="arrow">UP</div>
+<div id="arrow-up" class="arrow">FORWARD</div>
 <div id="arrow-right" class="arrow">RIGHT</div>
-<div id="arrow-down" class="arrow">DOWN</div>
+<div id="arrow-down" class="arrow">BACK</div>
+
+<img id="camera" alt="stream loading...">
 
 <script>
-var lastKeyCode;
+var lastKeyCode,
+    image = document.getElementsByTagName('img')[0];
+
+(function stream() {
+    var xmlHttp = new XMLHttpRequest(),
+        url = '/stream.jpg';
+
+    if (xmlHttp && xmlHttp.readyState == 0 || xmlHttp.readyState == 4) {
+        xmlHttp.open('GET', url, true);
+
+        xmlHttp.onreadystatechange = function() {
+            if (xmlHttp.readyState == 4) {
+                image.src = 'stream.jpg?' + (new Date()).getTime();
+                setTimeout(stream, 4000);
+            }
+        };
+        xmlHttp.send(null);
+    }
+}());
 
 window.addEventListener('keydown', function(e) {
     var keyCode = e.which || e.keyCode;
@@ -64,19 +99,23 @@ window.addEventListener('keydown', function(e) {
     switch (keyCode) {
         case 37:
             setActive('arrow-left');
-            sendPostRequest({action: 'on', direction: 'left'});
+            //sendPostRequest({action: 'on', direction: 'left'});
+            sendPostRequest({action: 'start', direction: 'l'});
             break;
         case 38:
             setActive('arrow-up');
-            sendPostRequest({action: 'on', direction: 'up'});
+            //sendPostRequest({action: 'on', direction: 'up'});
+            sendPostRequest({action: 'start', direction: 'f'});
             break;
         case 39:
             setActive('arrow-right');
-            sendPostRequest({action: 'on', direction: 'right'});
+            //sendPostRequest({action: 'on', direction: 'right'});
+            sendPostRequest({action: 'start', direction: 'r'});
             break;
         case 40:
             setActive('arrow-down');
-            sendPostRequest({action: 'on', direction: 'down'});
+            //sendPostRequest({action: 'on', direction: 'down'});
+            sendPostRequest({action: 'start', direction: 'b'});
             break;
     }
 }, false);
@@ -89,19 +128,23 @@ window.addEventListener('keyup', function(e) {
     switch (keyCode) {
         case 37:
             unsetActive('arrow-left');
-            sendPostRequest({action: 'off', direction: 'left'});
+            //sendPostRequest({action: 'off', direction: 'left'});
+            sendPostRequest({action: 'stop', direction: 'l'});
             break;
         case 38:
             unsetActive('arrow-up');
-            sendPostRequest({action: 'off', direction: 'up'});
+            //sendPostRequest({action: 'off', direction: 'up'});
+            sendPostRequest({action: 'stop', direction: 'f'});
             break;
         case 39:
             unsetActive('arrow-right');
-            sendPostRequest({action: 'off', direction: 'right'});
+            //sendPostRequest({action: 'off', direction: 'right'});
+            sendPostRequest({action: 'stop', direction: 'r'});
             break;
         case 40:
             unsetActive('arrow-down');
-            sendPostRequest({action: 'off', direction: 'down'});
+            //sendPostRequest({action: 'off', direction: 'down'});
+            sendPostRequest({action: 'stop', direction: 'b'});
             break;
     }
 }, false);
@@ -115,31 +158,13 @@ var unsetActive = function(id) {
 };
 
 var sendPostRequest = function(params) {
-    var xmlHttp,
+    var xmlHttp = new XMLHttpRequest(),
         url = '/cgi-bin/control.py',
         paramsFormatted = null;
-
-    try{
-        if (window.XMLHttpRequest) {
-            xmlHttp = new XMLHttpRequest();
-        } else {
-            // IE 8
-            xmlHttp = new ActiveXObject('Microsoft.XMLHTTP');
-        }
-    } catch(e) {
-        xmlHttp = false;
-    }
 
     if (xmlHttp && xmlHttp.readyState == 0 || xmlHttp.readyState == 4) {
         xmlHttp.open('POST', url, true);
         xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-        // callback function when the request finished
-        xmlHttp.onreadystatechange = function() {
-            if (xmlHttp.readyState == 4) {
-                // callback xmlHttp.responseText
-            }
-        };
 
         // format the params
         if (params != null && typeof params == 'object') {
