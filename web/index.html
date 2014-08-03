@@ -99,22 +99,18 @@ window.addEventListener('keydown', function(e) {
     switch (keyCode) {
         case 37:
             setActive('arrow-left');
-            //sendPostRequest({action: 'on', direction: 'left'});
             sendPostRequest({action: 'start', direction: 'l'});
             break;
         case 38:
             setActive('arrow-up');
-            //sendPostRequest({action: 'on', direction: 'up'});
             sendPostRequest({action: 'start', direction: 'f'});
             break;
         case 39:
             setActive('arrow-right');
-            //sendPostRequest({action: 'on', direction: 'right'});
             sendPostRequest({action: 'start', direction: 'r'});
             break;
         case 40:
             setActive('arrow-down');
-            //sendPostRequest({action: 'on', direction: 'down'});
             sendPostRequest({action: 'start', direction: 'b'});
             break;
     }
@@ -128,22 +124,18 @@ window.addEventListener('keyup', function(e) {
     switch (keyCode) {
         case 37:
             unsetActive('arrow-left');
-            //sendPostRequest({action: 'off', direction: 'left'});
             sendPostRequest({action: 'stop', direction: 'l'});
             break;
         case 38:
             unsetActive('arrow-up');
-            //sendPostRequest({action: 'off', direction: 'up'});
             sendPostRequest({action: 'stop', direction: 'f'});
             break;
         case 39:
             unsetActive('arrow-right');
-            //sendPostRequest({action: 'off', direction: 'right'});
             sendPostRequest({action: 'stop', direction: 'r'});
             break;
         case 40:
             unsetActive('arrow-down');
-            //sendPostRequest({action: 'off', direction: 'down'});
             sendPostRequest({action: 'stop', direction: 'b'});
             break;
     }

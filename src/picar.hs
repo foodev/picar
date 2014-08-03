@@ -74,7 +74,7 @@ driveRight action
     | otherwise = printHelp
 
 printHelp :: IO ()
-printHelp = putStrLn "Usage: picarhs [f|b|l|r] [start|stop]"
+printHelp = putStrLn "Usage: picar [f|b|l|r] [start|stop]"
 
 main :: IO ()
 main = do
