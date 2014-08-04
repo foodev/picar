@@ -69,7 +69,7 @@ driveRight action
     | otherwise = printHelp
 
 printHelp :: IO ()
-printHelp = putStrLn "Usage: picar [f|b|l|r] [start|stop]"
+printHelp = putStrLn "Usage: picar [[export|unexport] | [f|b|l|r] [start|stop]]"
 
 main :: IO ()
 main = do
@@ -89,6 +89,20 @@ main = do
                 "b" -> driveBack action
                 "l" -> driveLeft action
                 "r" -> driveRight action
+                _ -> printHelp
+        [action] -> do
+            -- export / unexport pins
+            case action of
+                "export" -> do
+                    exportGPIO (fst motorFront)
+                    exportGPIO (snd motorFront)
+                    exportGPIO (fst motorBack)
+                    exportGPIO (snd motorBack)
+                "unexport" -> do
+                    unexportGPIO (fst motorFront)
+                    unexportGPIO (snd motorFront)
+                    unexportGPIO (fst motorBack)
+                    unexportGPIO (snd motorBack)
                 _ -> printHelp
         -- print the help info and exit
         _ -> printHelp
