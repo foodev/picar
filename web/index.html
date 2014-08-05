@@ -68,23 +68,15 @@ body {
 
 <script>
 var lastKeyCode,
-    image = document.getElementsByTagName('img')[0];
+    webcamOutput = document.getElementsByTagName('img')[0];
 
 (function stream() {
-    var xmlHttp = new XMLHttpRequest(),
-        url = '/stream.jpg';
-
-    if (xmlHttp && xmlHttp.readyState == 0 || xmlHttp.readyState == 4) {
-        xmlHttp.open('GET', url, true);
-
-        xmlHttp.onreadystatechange = function() {
-            if (xmlHttp.readyState == 4) {
-                image.src = 'stream.jpg?' + (new Date()).getTime();
-                setTimeout(stream, 4000);
-            }
-        };
-        xmlHttp.send(null);
+    var image = new Image();
+    image.onload = function() {
+        webcamOutput.src = this.src;
+        setTimeout(stream, 2000);
     }
+    image.src = '/stream.jpg?' + (new Date()).getTime();
 }());
 
 window.addEventListener('keydown', function(e) {
