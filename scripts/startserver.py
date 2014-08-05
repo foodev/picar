@@ -6,7 +6,11 @@ from CGIHTTPServer import CGIHTTPRequestHandler
 
 os.chdir('/home/pi/picar/web');
 
-serv = HTTPServer(('', 8080),CGIHTTPRequestHandler)
-serv.serve_forever()
+server = HTTPServer(('', 8080),CGIHTTPRequestHandler)
 
-print 'Server listening on localhost:8080'
+try:
+    print 'Server listening on localhost:8080'
+    server.serve_forever()
+except KeyboardInterrupt:
+    # gracefully shut down the server on `Ctrl + C`
+    server.shutdown()
