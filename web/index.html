@@ -20,11 +20,12 @@ body {
 .arrow {
     position: absolute;
     display: inline;
-    color: #000;
+    color: #fff;
     font: bold 100px monospace;
+    opacity: .3;
 }
 .arrow.active {
-    color: #f00;
+    opacity: 1;
 }
 #arrow-left {
     top: 50%;
@@ -46,16 +47,12 @@ body {
     bottom: 0;
     text-align: center;
 }
-#camera {
+img {
     position: absolute;
-    width: 1024px;
-    height: 768px;
-    margin: auto;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    border: 1px solid #555;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    z-index: -1;
 }
 </style>
 
@@ -64,7 +61,7 @@ body {
 <div id="arrow-right" class="arrow">RIGHT</div>
 <div id="arrow-down" class="arrow">BACK</div>
 
-<img id="camera" alt="stream loading...">
+<img alt="webcam loading...">
 
 <script>
 var lastKeyCode,
