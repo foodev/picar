@@ -71,7 +71,7 @@ var lastKeyCode,
     var image = new Image();
     image.onload = function() {
         webcamOutput.src = this.src;
-        setTimeout(stream, 2000);
+        setTimeout(stream, 3000);
     }
     image.src = '/stream.jpg?' + (new Date()).getTime();
 }());
