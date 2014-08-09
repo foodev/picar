@@ -5,7 +5,7 @@ Some scripts + a webinterface to control a remote car with a raspberry pi
 ## Requirements
 - git
 - gcc or ghc
-- Python (>= 2.7)
+- nodejs (+ websocket module)
 - fswebcam
 
 ## Installation

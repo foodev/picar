@@ -64,17 +64,13 @@ img {
 <img alt="webcam loading...">
 
 <script>
-var lastKeyCode,
-    webcamOutput = document.getElementsByTagName('img')[0];
+var socket = new WebSocket('ws://picar:8080', 'picar');
 
-(function stream() {
-    var image = new Image();
-    image.onload = function() {
-        webcamOutput.src = this.src;
-        setTimeout(stream, 3000);
-    }
-    image.src = '/stream.jpg?' + (new Date()).getTime();
-}());
+var lastKeyCode;
+
+socket.onmessage = function(e) {
+    document.getElementsByTagName('img')[0].src = e.data;
+};
 
 window.addEventListener('keydown', function(e) {
     var keyCode = e.which || e.keyCode;
@@ -88,19 +84,19 @@ window.addEventListener('keydown', function(e) {
     switch (keyCode) {
         case 37:
             setActive('arrow-left');
-            sendPostRequest({action: 'start', direction: 'l'});
+            socket.send(JSON.stringify({action: 'start', direction: 'l'}));
             break;
         case 38:
             setActive('arrow-up');
-            sendPostRequest({action: 'start', direction: 'f'});
+            socket.send(JSON.stringify({action: 'start', direction: 'f'}));
             break;
         case 39:
             setActive('arrow-right');
-            sendPostRequest({action: 'start', direction: 'r'});
+            socket.send(JSON.stringify({action: 'start', direction: 'r'}));
             break;
         case 40:
             setActive('arrow-down');
-            sendPostRequest({action: 'start', direction: 'b'});
+            socket.send(JSON.stringify({action: 'start', direction: 'b'}));
             break;
     }
 }, false);
@@ -113,19 +109,19 @@ window.addEventListener('keyup', function(e) {
     switch (keyCode) {
         case 37:
             unsetActive('arrow-left');
-            sendPostRequest({action: 'stop', direction: 'l'});
+            socket.send(JSON.stringify({action: 'stop', direction: 'l'}));
             break;
         case 38:
             unsetActive('arrow-up');
-            sendPostRequest({action: 'stop', direction: 'f'});
+            socket.send(JSON.stringify({action: 'stop', direction: 'f'}));
             break;
         case 39:
             unsetActive('arrow-right');
-            sendPostRequest({action: 'stop', direction: 'r'});
+            socket.send(JSON.stringify({action: 'stop', direction: 'r'}));
             break;
         case 40:
             unsetActive('arrow-down');
-            sendPostRequest({action: 'stop', direction: 'b'});
+            socket.send(JSON.stringify({action: 'stop', direction: 'b'}));
             break;
     }
 }, false);
@@ -137,28 +133,5 @@ var setActive = function(id) {
 var unsetActive = function(id) {
     document.getElementById(id).classList.remove('active');
 };
-
-var sendPostRequest = function(params) {
-    var xmlHttp = new XMLHttpRequest(),
-        url = '/cgi-bin/control.py',
-        paramsFormatted = null;
-
-    if (xmlHttp && xmlHttp.readyState == 0 || xmlHttp.readyState == 4) {
-        xmlHttp.open('POST', url, true);
-        xmlHttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-        // format the params
-        if (params != null && typeof params == 'object') {
-            var i = 1;
-            paramsFormatted = '';
-
-            for (var key in params) {
-                paramsFormatted += (i++ == 1 ? '' : '&') + encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-            }
-        }
-
-        xmlHttp.send(paramsFormatted);
-    }
-}
 </script>
 
