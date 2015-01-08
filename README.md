@@ -5,7 +5,7 @@ Some scripts + a webinterface to control a remote car with a raspberry pi
 ## Requirements
 - git
 - ghc (or any other Haskell compiler)
-- nodejs (+ websocket module)
+- nodejs (+ [websocket module](https://github.com/theturtle32/WebSocket-Node))
 
 ## Installation
 - clone this repository to `$HOME` on your raspberry pi
