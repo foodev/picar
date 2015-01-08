@@ -124,6 +124,54 @@ window.addEventListener('keyup', function(e) {
     }
 }, false);
 
+document.getElementById('arrow-left').addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    setActive('arrow-left');
+    socket.send(JSON.stringify({action: 'left'}));
+}, false);
+
+document.getElementById('arrow-left').addEventListener('touchend', function(e) {
+    e.preventDefault();
+    unsetActive('arrow-left');
+    socket.send(JSON.stringify({action: 'leftstop'}));
+}, false);
+
+document.getElementById('arrow-up').addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    setActive('arrow-up');
+    socket.send(JSON.stringify({action: 'forward'}));
+}, false);
+
+document.getElementById('arrow-up').addEventListener('touchend', function(e) {
+    e.preventDefault();
+    unsetActive('arrow-up');
+    socket.send(JSON.stringify({action: 'forwardstop'}));
+}, false);
+
+document.getElementById('arrow-right').addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    setActive('arrow-right');
+    socket.send(JSON.stringify({action: 'right'}));
+}, false);
+
+document.getElementById('arrow-right').addEventListener('touchend', function(e) {
+    e.preventDefault();
+    unsetActive('arrow-right');
+    socket.send(JSON.stringify({action: 'rightstop'}));
+}, false);
+
+document.getElementById('arrow-down').addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    setActive('arrow-down');
+    socket.send(JSON.stringify({action: 'back'}));
+}, false);
+
+document.getElementById('arrow-down').addEventListener('touchend', function(e) {
+    e.preventDefault();
+    unsetActive('arrow-down');
+    socket.send(JSON.stringify({action: 'backstop'}));
+}, false);
+
 var setActive = function(id) {
     document.getElementById(id).classList.add('active');
 };
