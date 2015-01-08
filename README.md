@@ -14,7 +14,7 @@ Some scripts + a webinterface to control a remote car with a raspberry pi
     + `$ mkdir $HOME/picar/bin`
     + `$ bash $HOME/picar/build.sh`
 - add the `$HOME/picar/bin` to your `PATH` variable
-    + `$ echo 'PATH="$HOME/picar/bin:$PATH"' >> vi $HOME/.profile`
+    + `$ echo 'PATH="$HOME/picar/bin:$PATH"' >> $HOME/.profile`
     + `$ source $HOME/.profile`
 - initialize the pins and start the webserver
     + `picar export`
