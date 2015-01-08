@@ -20,7 +20,7 @@ body {
 .arrow {
     position: absolute;
     display: inline;
-    color: #fff;
+    color: #000;
     font: bold 100px monospace;
     opacity: .3;
 }
@@ -82,19 +82,19 @@ window.addEventListener('keydown', function(e) {
     switch (keyCode) {
         case 37:
             setActive('arrow-left');
-            socket.send(JSON.stringify({action: 'start', direction: 'l'}));
+            socket.send(JSON.stringify({action: 'left'}));
             break;
         case 38:
             setActive('arrow-up');
-            socket.send(JSON.stringify({action: 'start', direction: 'f'}));
+            socket.send(JSON.stringify({action: 'forward'}));
             break;
         case 39:
             setActive('arrow-right');
-            socket.send(JSON.stringify({action: 'start', direction: 'r'}));
+            socket.send(JSON.stringify({action: 'right'}));
             break;
         case 40:
             setActive('arrow-down');
-            socket.send(JSON.stringify({action: 'start', direction: 'b'}));
+            socket.send(JSON.stringify({action: 'back'}));
             break;
     }
 }, false);
@@ -107,19 +107,19 @@ window.addEventListener('keyup', function(e) {
     switch (keyCode) {
         case 37:
             unsetActive('arrow-left');
-            socket.send(JSON.stringify({action: 'stop', direction: 'l'}));
+            socket.send(JSON.stringify({action: 'leftstop'}));
             break;
         case 38:
             unsetActive('arrow-up');
-            socket.send(JSON.stringify({action: 'stop', direction: 'f'}));
+            socket.send(JSON.stringify({action: 'forwardstop'}));
             break;
         case 39:
             unsetActive('arrow-right');
-            socket.send(JSON.stringify({action: 'stop', direction: 'r'}));
+            socket.send(JSON.stringify({action: 'rightstop'}));
             break;
         case 40:
             unsetActive('arrow-down');
-            socket.send(JSON.stringify({action: 'stop', direction: 'b'}));
+            socket.send(JSON.stringify({action: 'backstop'}));
             break;
     }
 }, false);

@@ -30,6 +30,6 @@ websocket.on('request', function(request) {
     client.on('message', function(message) {
         data = JSON.parse(message.utf8Data);
 
-        exec(require('util').format('/home/pi/picar/bin/picar %s %s', data.direction, data.action));
+        exec(require('util').format('/home/pi/picar/bin/picar drive %s', data.action));
     });
 });
