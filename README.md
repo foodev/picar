@@ -20,7 +20,7 @@ Some scripts + a webinterface to control a remote car with a raspberry pi
 - initialize the pins and start the webserver
     + `picar export`
     + `picar init`
-    + `nodejs $HOME/picar/web/server.js`
+    + `picar startwebserver`
 - navigate your browser to `http://localhost:8080`
     + to access the webinterface from another pc, replace `localhost` with the ip of the raspberry pi
 - :)

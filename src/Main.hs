@@ -1,6 +1,7 @@
 module Main (main) where
 
 import System.Environment
+import System.Cmd(system)
 import System.Exit
 import Control.Monad
 import qualified GPIO.Pin as Pin
@@ -65,6 +66,9 @@ main = do
                 exitSuccess
             "stop" -> do
                 mapTuple2M_ Pin.writePinListLow motors
+                exitSuccess
+            "startwebserver" -> do
+                system "nodejs $HOME/picar/web/server.js"
                 exitSuccess
             _ -> do
                 putStrLn "Usage: picar export|init|unexport|stop|drive [forward|back|left|right|forwardstop|backstop|leftstop|rightstop]"
