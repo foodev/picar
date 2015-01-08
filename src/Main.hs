@@ -71,8 +71,8 @@ main = do
                 system "nodejs $HOME/picar/web/server.js"
                 exitSuccess
             _ -> do
-                putStrLn "Usage: picar export|init|unexport|stop|drive [forward|back|left|right|forwardstop|backstop|leftstop|rightstop]"
+                putStrLn "Usage: picar export|init|unexport|stop|startwebserver|drive [forward|back|left|right|forwardstop|backstop|leftstop|rightstop]"
                 exitSuccess
         _ -> do
-            putStrLn "Usage: picar export|init|unexport|stop|drive [forward|back|left|right|forwardstop|backstop|leftstop|rightstop]"
+            putStrLn "Usage: picar export|init|unexport|stop|startwebserver|drive [forward|back|left|right|forwardstop|backstop|leftstop|rightstop]"
             exitSuccess
