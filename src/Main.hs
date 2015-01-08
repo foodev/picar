@@ -1,7 +1,6 @@
 module Main (main) where
 
 import System.Environment
-import System.Posix.Signals
 import System.Exit
 import Control.Monad
 import qualified GPIO.Pin as Pin
