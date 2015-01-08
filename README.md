@@ -6,7 +6,6 @@ Some scripts + a webinterface to control a remote car with a raspberry pi
 - git
 - ghc (or any other Haskell compiler)
 - nodejs (+ websocket module)
-- fswebcam
 
 ## Installation
 - clone this repository to `$HOME` on your raspberry pi
