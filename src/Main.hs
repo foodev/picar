@@ -11,9 +11,8 @@ motors = (
         [18, 23]
     )
 
--- TOTO(jonas): Isn't this mapTuple2M_ ?
-mapTuple4M_ :: Monad m => (a -> m b) -> (a, a) -> m ()
-mapTuple4M_ f (a3, a4) = mapM_ f [a3, a4]
+mapTuple2M_ :: Monad m => (a -> m b) -> (a, a) -> m ()
+mapTuple2M_ f (a3, a4) = mapM_ f [a3, a4]
 
 drive "forward" = do
     Pin.writePinHigh (head $ snd motors)
@@ -56,16 +55,16 @@ main = do
             "drive" -> drive parameter
         [option] -> case option of
             "init" -> do
-                mapTuple4M_ (\motor -> mapM_ (\led -> Pin.writeDirection led "out") motor) motors
+                mapTuple2M_ (\motor -> mapM_ (\led -> Pin.writeDirection led "out") motor) motors
                 exitSuccess
             "export" -> do
-                mapTuple4M_ (\motor -> mapM_ (\led -> Pin.export led) motor) motors
+                mapTuple2M_ (\motor -> mapM_ (\led -> Pin.export led) motor) motors
                 exitSuccess
             "unexport" -> do
-                mapTuple4M_ (\motor -> mapM_ (\led -> Pin.unexport led) motor) motors
+                mapTuple2M_ (\motor -> mapM_ (\led -> Pin.unexport led) motor) motors
                 exitSuccess
             "stop" -> do
-                mapTuple4M_ Pin.writePinListLow motors
+                mapTuple2M_ Pin.writePinListLow motors
                 exitSuccess
             _ -> do
                 putStrLn "Usage: picar export|init|unexport|stop|drive [forward|back|left|right|forwardstop|backstop|leftstop|rightstop]"
