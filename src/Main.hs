@@ -68,7 +68,7 @@ main = do
                 mapTuple2M_ Pin.writePinListLow motors
                 exitSuccess
             "startwebserver" -> do
-                system "nodejs $HOME/picar/web/server.js"
+                system "nodejs $HOME/picar/web/server.js 8080"
                 exitSuccess
             _ -> do
                 putStrLn "Usage: picar export|init|unexport|stop|startwebserver|drive [forward|back|left|right|forwardstop|backstop|leftstop|rightstop]"

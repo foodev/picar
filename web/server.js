@@ -5,6 +5,12 @@ var config = {
     htmlTemplate: '/home/pi/picar/web/index.html'
 };
 
+
+var port = 8080;
+if (typeof process.argv[2] != 'undefined') {
+    port = process.argv[2];
+}
+
 var http = require('http').createServer(function(request, response) {
     require('fs').readFile(config.htmlTemplate, function(error, html) {
         response.writeHead(200, {'content-type': 'text/html'});
@@ -12,7 +18,10 @@ var http = require('http').createServer(function(request, response) {
         response.end();
     });
 });
-http.listen(8080);
+http.listen(port, undefined, undefined, function() {
+    console.log('Started webserver on 0.0.0.0:' + port);
+});
+
 
 websocket = new WebSocketServer({
     httpServer: http,
