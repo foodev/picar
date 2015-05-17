@@ -17,9 +17,9 @@ Some scripts + a webinterface to control a remote car with a raspberry pi
     + `$ echo 'PATH="$HOME/picar/bin:$PATH"' >> $HOME/.profile`
     + `$ source $HOME/.profile`
 - initialize the pins and start the webserver
-    + `picar export`
-    + `picar init`
-    + `picar startwebserver`
+    + `picar --export`
+    + `picar --init`
+    + `picar --http`
 - navigate your browser to `http://localhost:8080`
     + to access the webinterface from another pc, replace `localhost` with the ip of the raspberry pi
 - :)
