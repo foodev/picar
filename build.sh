@@ -6,6 +6,6 @@
 # since: 2015-01-07
 #
 
-cd /home/pi/picar/src
-ghc --make -o ../bin/picar Main.hs
+cd "$(dirname "${BASH_SOURCE[0]}")/src"
+ghc -dynamic --make -o ../bin/picar Main.lhs
 cd - &> /dev/null
